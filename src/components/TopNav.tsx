@@ -10,13 +10,14 @@ const items = [
 ];
 
 export const TopNav = () => (
-  <header className="sticky top-0 z-30 border-b border-border/60 bg-background/70 backdrop-blur">
+  <header className="sticky top-0 z-30 border-b border-border/50 bg-background/60 backdrop-blur-xl">
+    <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-rainbow opacity-60" />
     <div className="container flex h-14 items-center justify-between">
-      <Link to="/" className="flex items-center gap-2">
-        <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-primary text-primary-foreground shadow-[var(--glow-primary)]">
+      <Link to="/" className="group flex items-center gap-2">
+        <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-rainbow bg-[length:200%_200%] text-primary-foreground shadow-glow-primary transition-all group-hover:bg-[position:100%_50%]">
           <Brain className="h-4 w-4" />
         </span>
-        <span className="font-mono text-sm font-bold tracking-tight">cogni<span className="text-primary">.</span>ai</span>
+        <span className="font-mono text-sm font-bold tracking-tight">cogni<span className="text-gradient-rainbow">.</span>ai</span>
       </Link>
       <nav className="flex items-center gap-1">
         {items.map((i) => (
