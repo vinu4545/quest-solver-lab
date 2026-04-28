@@ -77,9 +77,9 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "cv11";
     background-image:
-      radial-gradient(1200px 700px at 85% -10%, hsl(270 85% 45% / 0.28), transparent 60%),
-      radial-gradient(1000px 600px at -10% 5%, hsl(174 95% 40% / 0.25), transparent 60%),
-      radial-gradient(900px 600px at 50% 110%, hsl(320 95% 50% / 0.22), transparent 60%);
+      radial-gradient(1200px 700px at 85% -10%, hsl(250 85% 50% / 0.28), transparent 60%),
+      radial-gradient(1000px 600px at -10% 5%, hsl(188 95% 45% / 0.25), transparent 60%),
+      radial-gradient(900px 600px at 50% 110%, hsl(220 90% 55% / 0.22), transparent 60%);
     background-attachment: fixed;
   }
   h1,h2,h3,h4 { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: -0.01em; }
