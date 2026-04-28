@@ -13,17 +13,17 @@
     --popover: 240 30% 8%;
     --popover-foreground: 200 25% 97%;
 
-    --primary: 174 95% 58%;
+    --primary: 188 95% 58%;
     --primary-foreground: 240 35% 6%;
-    --primary-glow: 195 100% 60%;
+    --primary-glow: 210 100% 65%;
 
-    --secondary: 270 85% 70%;
+    --secondary: 230 85% 68%;
     --secondary-foreground: 240 35% 6%;
 
     --muted: 240 25% 13%;
     --muted-foreground: 220 18% 70%;
 
-    --accent: 320 95% 65%;
+    --accent: 250 85% 70%;
     --accent-foreground: 240 35% 6%;
 
     --destructive: 0 80% 62%;
@@ -37,25 +37,25 @@
 
     --grid-line: 240 25% 24%;
     --tile: 240 30% 12%;
-    --tile-active: 174 95% 58%;
-    --tile-goal: 142 75% 52%;
-    --tile-explored: 270 70% 40%;
-    --tile-path: 174 95% 58%;
+    --tile-active: 188 95% 58%;
+    --tile-goal: 160 75% 52%;
+    --tile-explored: 230 70% 45%;
+    --tile-path: 188 95% 58%;
     --tile-wall: 240 35% 4%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(174 95% 58% / 0.22), hsl(270 85% 70% / 0.22) 45%, hsl(320 95% 65% / 0.25) 80%, hsl(35 100% 60% / 0.18));
-    --gradient-primary: linear-gradient(135deg, hsl(174 95% 58%), hsl(195 100% 62%) 50%, hsl(220 95% 65%));
-    --gradient-accent: linear-gradient(135deg, hsl(270 85% 70%), hsl(320 95% 65%) 55%, hsl(355 95% 65%));
-    --gradient-rainbow: linear-gradient(135deg, hsl(174 95% 58%), hsl(220 95% 65%) 25%, hsl(270 85% 70%) 50%, hsl(320 95% 65%) 75%, hsl(35 100% 62%));
-    --gradient-sunset: linear-gradient(135deg, hsl(320 95% 65%), hsl(15 100% 65%) 50%, hsl(45 100% 60%));
-    --gradient-mesh: radial-gradient(at 20% 20%, hsl(174 95% 58% / 0.35) 0px, transparent 50%),
-                     radial-gradient(at 80% 10%, hsl(270 85% 70% / 0.35) 0px, transparent 50%),
-                     radial-gradient(at 60% 80%, hsl(320 95% 65% / 0.30) 0px, transparent 50%),
-                     radial-gradient(at 10% 90%, hsl(195 100% 60% / 0.25) 0px, transparent 50%);
+    --gradient-hero: linear-gradient(135deg, hsl(188 95% 58% / 0.22), hsl(230 85% 68% / 0.24) 55%, hsl(250 85% 70% / 0.22));
+    --gradient-primary: linear-gradient(135deg, hsl(188 95% 58%), hsl(210 95% 62%) 55%, hsl(230 85% 68%));
+    --gradient-accent: linear-gradient(135deg, hsl(230 85% 68%), hsl(250 85% 70%) 100%);
+    --gradient-rainbow: linear-gradient(135deg, hsl(188 95% 58%), hsl(220 90% 65%) 50%, hsl(250 85% 70%));
+    --gradient-sunset: linear-gradient(135deg, hsl(210 95% 62%), hsl(240 90% 68%) 50%, hsl(250 85% 70%));
+    --gradient-mesh: radial-gradient(at 20% 20%, hsl(188 95% 58% / 0.35) 0px, transparent 50%),
+                     radial-gradient(at 80% 10%, hsl(230 85% 68% / 0.32) 0px, transparent 50%),
+                     radial-gradient(at 60% 80%, hsl(250 85% 70% / 0.28) 0px, transparent 50%),
+                     radial-gradient(at 10% 90%, hsl(210 100% 65% / 0.25) 0px, transparent 50%);
 
-    --glow-primary: 0 0 50px hsl(174 95% 58% / 0.45), 0 0 90px hsl(195 100% 60% / 0.20);
-    --glow-accent: 0 0 50px hsl(320 95% 65% / 0.45), 0 0 90px hsl(270 85% 70% / 0.20);
-    --shadow-elegant: 0 20px 60px -20px hsl(174 95% 58% / 0.35);
+    --glow-primary: 0 0 50px hsl(188 95% 58% / 0.45), 0 0 90px hsl(210 100% 65% / 0.20);
+    --glow-accent: 0 0 50px hsl(250 85% 70% / 0.40), 0 0 90px hsl(230 85% 68% / 0.20);
+    --shadow-elegant: 0 20px 60px -20px hsl(210 95% 60% / 0.40);
 
     --sidebar-background: 240 30% 7%;
     --sidebar-foreground: 200 25% 97%;
@@ -77,9 +77,9 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "cv11";
     background-image:
-      radial-gradient(1200px 700px at 85% -10%, hsl(270 85% 45% / 0.28), transparent 60%),
-      radial-gradient(1000px 600px at -10% 5%, hsl(174 95% 40% / 0.25), transparent 60%),
-      radial-gradient(900px 600px at 50% 110%, hsl(320 95% 50% / 0.22), transparent 60%);
+      radial-gradient(1200px 700px at 85% -10%, hsl(250 85% 50% / 0.28), transparent 60%),
+      radial-gradient(1000px 600px at -10% 5%, hsl(188 95% 45% / 0.25), transparent 60%),
+      radial-gradient(900px 600px at 50% 110%, hsl(220 90% 55% / 0.22), transparent 60%);
     background-attachment: fixed;
   }
   h1,h2,h3,h4 { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: -0.01em; }
