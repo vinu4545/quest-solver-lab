@@ -1,5 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import { Brain } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const items = [
   { to: "/", label: "Home" },
@@ -28,6 +29,9 @@ export const TopNav = () => (
             {i.label}
           </NavLink>
         ))}
+        <div className="ml-2 pl-2 border-l border-border/60">
+          <ThemeToggle />
+        </div>
       </nav>
     </div>
   </header>
