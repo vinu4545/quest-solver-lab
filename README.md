@@ -1,132 +1,177 @@
-🚀 Intelligent Puzzle Game Generator & Solver
-AI-powered system using Search, Knowledge Representation & Planning
-🧠 Overview
+🚀 FINAL WEBSITE GENERATION PROMPT
 
-This project is an AI-driven puzzle generation and solving platform that demonstrates core Artificial Intelligence concepts including:
+You are a Senior AI Systems Architect, Full-Stack Developer, and Game Intelligence Engineer.
 
-Search Algorithms
-Knowledge Representation
-Planning & Decision Making
+Your task is to design and build a complete, modern, multi-page web application called:
 
-Unlike traditional puzzle games, this system generates puzzles dynamically, solves them using AI, and explains the reasoning step-by-step.
+🧩 “Intelligent Puzzle Game Generator & Solver”
 
-🎯 Key Features
-🔹 Dynamic Puzzle Generation
-Generates valid and solvable puzzles
-Supports multiple difficulty levels
-Avoids trivial or pre-solved states
-🔹 AI-Based Puzzle Solving
+This platform simulates an AI-powered puzzle system that:
+- 🔹 Generates puzzles dynamically (not hardcoded)
+- 🔹 Solves puzzles using AI search algorithms
+- 🔹 Provides step-by-step reasoning and visualization
+- 🔹 Demonstrates Search, Knowledge Representation, and Planning
 
-Implements multiple search strategies:
+The website must be visually attractive, modern, and include smooth animations.
 
-Breadth-First Search (BFS)
-Depth-First Search (DFS)
-A* Search (Heuristic-based)
-Backtracking (for constraint problems like Sudoku)
-🔹 Step-by-Step Visualization
-Displays state transitions
-Highlights moves and actions
-Shows solution path clearly
-🔹 Explainable AI
-Shows:
-Algorithm used
-Number of steps
-Nodes explored
-Time taken
-Provides reasoning behind the solution
-🧩 Supported Puzzles (MVP)
-8-Puzzle (Sliding Puzzle)
-Sudoku Solver
-Maze Solver (Pathfinding)
+==================================================
+🎯 CORE FEATURES
+==================================================
 
-Designed to be easily extendable for future puzzle types
+- 🧠 Dynamic Puzzle Generation (valid & solvable only)
+- 🤖 AI-based Puzzle Solving (BFS, DFS, A*, Backtracking)
+- 🔄 Step-by-step solution visualization
+- 📊 Explainable AI reasoning
+- ⏱️ Performance metrics (steps, nodes, time)
 
-🏗️ System Architecture
-🔸 Frontend
-React.js (or HTML/CSS/JS)
-Interactive puzzle boards
-Visualization controls (Play / Pause / Step)
-🔸 Backend
-Python (FastAPI / Flask) or Node.js
-Modular design:
-Puzzle Generator
-Solver Engine
-Visualization Engine
-⚙️ AI Concepts Implemented
-🔍 Search Algorithms
-BFS → Optimal shortest path
-DFS → Deep exploration
-A* → Heuristic-based optimal solution
-🧠 Knowledge Representation
-Puzzle states represented as:
-Arrays (8-puzzle, Sudoku)
-Graphs (maze)
-Nodes and transitions modeled explicitly
-🧭 Planning
-Generates sequence of actions:
-Tile movement
-Cell assignment
-Path traversal
-📊 Output Metrics
+==================================================
+🧩 SUPPORTED PUZZLES (MVP)
+==================================================
 
-Each solution provides:
+- 🔢 8-Puzzle (Sliding Puzzle)
+- 🧮 Sudoku Solver
+- 🧭 Maze Solver
 
-Total steps taken
-Nodes explored
-Execution time
-Solution path
-🎨 UI/UX Highlights
-Clean dark-tech theme
-Interactive puzzle rendering
-Animated solving process
-Color-coded states:
-Current state
-Goal state
-Active transitions
-✅ Validation Rules
+==================================================
+🌐 WEBSITE STRUCTURE (MULTI-PAGE)
+==================================================
 
-The system ensures:
+1. 🏠 Home Page
+   - Project overview
+   - AI concept explanation
+   - Buttons:
+     - ▶️ Generate Puzzle
+     - 🧠 Solve Puzzle
 
-Only solvable puzzles are generated
-No invalid states
-No infinite loops during search
-Proper constraint handling (Sudoku rules, etc.)
-🚫 Limitations (MVP Scope)
-Limited puzzle types (expandable)
-Basic heuristic implementation (can be improved)
-Performance may vary for large state spaces
-🔮 Future Enhancements
-Advanced heuristics for A*
-Performance comparison dashboard
-AI difficulty adaptation
-Multiplayer puzzle challenges
-🛠️ How to Run
-# Clone the repository
-git clone https://github.com/your-repo-name
+2. ⚙️ Puzzle Generator Page
+   - Select puzzle type
+   - Select difficulty (Easy / Medium / Hard)
+   - Generate puzzle dynamically
+   - Visual display of puzzle
 
-# Navigate to project
-cd puzzle-ai-system
+3. 🧠 Puzzle Solver Page
+   - Input puzzle OR use generated one
+   - Select algorithm:
+     - BFS
+     - DFS
+     - A*
+     - Backtracking (Sudoku)
+   - ▶️ Solve button
 
-# Install dependencies
-npm install   # or pip install -r requirements.txt
+4. 🔄 Solution Visualization Page
+   - Step-by-step transitions
+   - Highlight moves
+   - Show solution path
 
-# Run backend
-npm start     # or uvicorn main:app --reload
+5. 📘 AI Explanation Page
+   - Algorithm used
+   - Heuristic (for A*)
+   - Time complexity
+   - Nodes explored
+   - Reasoning behind solution
 
-# Open in browser
-http://localhost:3000
-🧠 Why This Project Matters
+==================================================
+🧠 AI CORE LOGIC
+==================================================
 
-This project goes beyond simple game development by demonstrating:
+🔍 SEARCH:
+- BFS → shortest path
+- DFS → deep exploration
+- A* → heuristic optimal search
+- Backtracking → constraint solving
 
-👉 How AI explores state spaces
-👉 How decisions are made using search
-👉 How solutions can be explained step-by-step
+📦 KNOWLEDGE REPRESENTATION:
+- 8-Puzzle → 2D array state
+- Sudoku → constraint grid
+- Maze → graph (nodes & edges)
 
-👨‍💻 Contributors
-Your Name
-Team Members
-📌 Final Note
+🧭 PLANNING:
+- Generate sequence of actions:
+  - Move tile
+  - Fill cell
+  - Navigate path
 
-This is not just a puzzle game.
-It is a practical implementation of core AI concepts in an interactive system.
+==================================================
+⚙️ PUZZLE GENERATION RULES
+==================================================
+
+- ✅ Only valid and solvable puzzles
+- ❌ Avoid already solved states
+- 📈 Difficulty controls complexity
+
+==================================================
+📊 SOLVER OUTPUT
+==================================================
+
+- 🔢 Total steps
+- 🌐 Nodes explored
+- ⏱️ Time taken
+- 🧭 Solution path
+
+==================================================
+🎨 UI/UX REQUIREMENTS
+==================================================
+
+- 🌙 Dark modern theme
+- 🎮 Interactive puzzle boards
+- ✨ Smooth animations
+- 🎛️ Controls: Play / Pause / Next
+- 🎨 Color coding:
+  - Current state
+  - Goal state
+  - Active transitions
+
+==================================================
+⚡ BACKEND REQUIREMENTS
+==================================================
+
+- 🐍 Python (FastAPI / Flask) OR Node.js
+- Modular structure:
+  - Generator module
+  - Solver module
+  - Visualization module
+
+==================================================
+💻 FRONTEND REQUIREMENTS
+==================================================
+
+- ⚛️ React.js OR HTML/CSS/JS
+- Dynamic rendering
+- Step visualization controls
+
+==================================================
+🔒 VALIDATION RULES
+==================================================
+
+- ❌ No invalid states
+- ❌ No unsolvable puzzles
+- ❌ No infinite loops
+- ✅ Enforce constraints
+
+==================================================
+🚀 ADVANCED FEATURES (OPTIONAL)
+==================================================
+
+- 📊 Algorithm comparison (BFS vs A*)
+- 📈 Performance graphs
+- 🤖 Adaptive difficulty
+- 👥 Multiplayer puzzles
+
+==================================================
+🚫 RESTRICTIONS
+==================================================
+
+DO NOT:
+- ❌ Hardcode puzzles
+- ❌ Fake AI logic
+- ❌ Skip solving steps
+- ❌ Build UI without intelligence
+
+==================================================
+🏁 GOAL
+==================================================
+
+Deliver a working MVP that clearly demonstrates:
+
+🧠 Search + Knowledge Representation + Planning  
+through an intelligent, interactive puzzle system.
