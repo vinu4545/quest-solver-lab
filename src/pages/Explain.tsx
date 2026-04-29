@@ -50,6 +50,27 @@ const Explain = () => {
             {sol.algorithm === "Backtracking" && <p>Worst-case exponential in the number of empty cells, but MRV plus constraint checking keeps real-world Sudoku solving in milliseconds.</p>}
           </Block>
 
+          <Block title="Recommendation">
+            {sol.type === "8puzzle" && (
+              <div className="space-y-2">
+                <p className="font-bold text-primary">Best choice: <span className="text-foreground">A*</span></p>
+                <p>A* is optimal for the 8-puzzle because it balances optimality with speed using the Manhattan distance heuristic. {sol.algorithm === "A*" ? "✓ You used the best algorithm!" : "BFS guarantees optimality but explores ~2-3x more nodes. DFS is fastest but doesn't guarantee the shortest path."}</p>
+              </div>
+            )}
+            {sol.type === "sudoku" && (
+              <div className="space-y-2">
+                <p className="font-bold text-primary">Best choice: <span className="text-foreground">Backtracking + MRV</span></p>
+                <p>Backtracking with Minimum Remaining Values heuristic is the standard for Sudoku—it prunes the search space intelligently by choosing cells with fewer possibilities first. ✓ This is the only viable algorithm for constraint satisfaction.</p>
+              </div>
+            )}
+            {sol.type === "maze" && (
+              <div className="space-y-2">
+                <p className="font-bold text-primary">Best choice: <span className="text-foreground">A*</span></p>
+                <p>A* is optimal for maze solving using Manhattan distance to the goal. {sol.algorithm === "A*" ? "✓ You used the best algorithm!" : "BFS guarantees the shortest path but explores more cells. DFS finds a path quickly but not necessarily the shortest one."}</p>
+              </div>
+            )}
+          </Block>
+
           <div className="lg:col-span-2 panel p-5">
             <h3 className="mb-3 font-mono text-sm font-bold text-primary">This run</h3>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
