@@ -14,7 +14,7 @@ const cloneGrid = (grid: Sudoku): Sudoku => grid.map((row) => row.slice());
 const Stat = ({ label, value }: { label: string; value: string | number }) => (
   <div className="rounded-lg border border-border bg-muted/30 p-3">
     <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
-    <div className="mt-0.5 font-mono text-lg font-bold text-foreground">{value}</div>
+    <div className="mt-0.5 truncate font-mono text-lg font-bold text-foreground">{value}</div>
   </div>
 );
 
@@ -149,7 +149,7 @@ const Visualize = () => {
               <Stat label="Found" value={sol.stats.found ? "Yes" : "No"} />
               <Stat label="Solution length" value={sol.stats.steps} />
               <Stat label="Nodes explored" value={sol.stats.nodesExplored.toLocaleString()} />
-              <Stat label="Time" value={`${sol.stats.timeMs} ms`} />
+              <Stat label="Time" value={`${sol.stats.timeMs.toFixed(2)} ms`} />
               <Stat label="Puzzle" value={sol.type === "8puzzle" ? "8-Puzzle" : sol.type === "sudoku" ? "Sudoku" : "Maze"} />
             </div>
           </div>
