@@ -15,6 +15,8 @@ from solver.eight_puzzle import (
 )
 from solver.maze import (
     generate_maze,
+    MazeData,
+    Pos,
     solve_astar as solve_maze_astar,
     solve_bfs as solve_maze_bfs,
     solve_dfs as solve_maze_dfs,
@@ -27,8 +29,20 @@ PORT = 8000
 
 def to_jsonable(value: Any) -> Any:
     """Convert dataclasses and nested containers into JSON-serializable values."""
-    if is_dataclass(value):
-        return {key: to_jsonable(item) for key, item in asdict(value).items()}
+    # Prefer dataclasses.asdict for true dataclasses, but be resilient
+    # if an object looks dataclass-like but isn't recognized by is_dataclass.
+    try:
+        if is_dataclass(value):
+            return {key: to_jsonable(item) for key, item in asdict(value).items()}
+    except Exception:
+        # fall through to other handling
+        pass
+    # Fallback: if object exposes a __dict__, convert that
+    if hasattr(value, "__dict__") and not isinstance(value, (str, bytes)):
+        try:
+            return {key: to_jsonable(item) for key, item in vars(value).items()}
+        except Exception:
+            pass
     if isinstance(value, dict):
         return {key: to_jsonable(item) for key, item in value.items()}
     if isinstance(value, list):
@@ -48,6 +62,22 @@ def stats_to_camel_case(stats: Any) -> dict[str, Any]:
         "timeMs": data["time_ms"],
         "found": data["found"],
     }
+
+
+def parse_pos(payload: dict[str, Any]) -> Pos:
+    """Convert a plain JSON position object into a maze Pos dataclass."""
+    return Pos(r=int(payload["r"]), c=int(payload["c"]))
+
+
+def parse_maze_data(payload: dict[str, Any]) -> MazeData:
+    """Convert maze JSON from the frontend into the MazeData dataclass expected by the solvers."""
+    return MazeData(
+        grid=payload["grid"],
+        start=parse_pos(payload["start"]),
+        end=parse_pos(payload["end"]),
+        rows=int(payload["rows"]),
+        cols=int(payload["cols"]),
+    )
 
 
 class SolverHandler(BaseHTTPRequestHandler):
@@ -163,7 +193,7 @@ class SolverHandler(BaseHTTPRequestHandler):
             return
 
         if puzzle_type == "maze":
-            maze = payload.get("maze")
+            maze = parse_maze_data(payload.get("maze") or {})
             if algorithm == "BFS":
                 result = solve_maze_bfs(maze)
             elif algorithm == "DFS":
@@ -178,7 +208,7 @@ class SolverHandler(BaseHTTPRequestHandler):
                         "type": "maze",
                         "algorithm": algorithm,
                         "stats": stats_to_camel_case(result.stats),
-                        "maze": maze,
+                        "maze": to_jsonable(maze),
                         "mazeOrder": to_jsonable(result.order),
                         "mazePath": to_jsonable(result.path),
                     }
