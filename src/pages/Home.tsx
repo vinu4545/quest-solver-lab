@@ -31,8 +31,8 @@ const Home = () => {
             <Zap className="h-3 w-3" /> Search · Knowledge · Planning
           </div>
           <h1 className="max-w-4xl text-4xl font-bold leading-[1.05] md:text-7xl">
-            An <span className="text-gradient-rainbow">intelligent puzzle</span><br />
-            generator <span className="text-gradient-sunset">&amp; solver</span>.
+            An <span className="text-foreground">intelligent puzzle</span><br />
+            generator <span className="text-foreground">&amp; solver</span>.
           </h1>
           <p className="mt-6 max-w-2xl text-base text-muted-foreground md:text-lg">
             Cogni generates valid, solvable puzzles and solves them with classical AI search —
@@ -58,7 +58,7 @@ const Home = () => {
               { k: "Heuristics", v: "Admissible" },
             ].map((s) => (
               <div key={s.k} className="rounded-xl border border-border/60 bg-background/40 p-3 backdrop-blur">
-                <div className="font-mono text-xl font-bold text-gradient">{s.v}</div>
+                <div className="font-mono text-xl font-bold text-foreground">{s.v}</div>
                 <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{s.k}</div>
               </div>
             ))}
