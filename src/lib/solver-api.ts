@@ -91,7 +91,7 @@ export async function generatePuzzle(type: PuzzleType, difficulty: Difficulty) {
 
 export async function solvePuzzle(input:
   | { type: "8puzzle"; algorithm: Exclude<Algorithm, "Backtracking">; board: Board }
-  | { type: "sudoku"; puzzle: Sudoku }
+  | { type: "sudoku"; algorithm: Algorithm; puzzle: Sudoku }
   | { type: "maze"; algorithm: Exclude<Algorithm, "Backtracking">; maze: MazeData }
 ) {
   const data = await requestJson<SolveResponse>("/api/solve", input);

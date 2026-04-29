@@ -2,7 +2,8 @@
 
 import random
 import time
-from typing import List, Tuple
+from typing import List, Tuple, Deque
+from collections import deque
 from dataclasses import dataclass
 from copy import deepcopy
 
@@ -178,6 +179,132 @@ def solve_backtracking(
 
     stats = SolveStats(
         algorithm="Backtracking + MRV",
+        steps=len(steps),
+        nodes_explored=explored,
+        time_ms=elapsed,
+        found=found,
+    )
+
+    return SudokuSolveResult(solution=grid, steps=steps, stats=stats)
+
+
+def solve_bfs(puzzle: Sudoku, record_steps: bool = True) -> SudokuSolveResult:
+    """Solve sudoku using BFS."""
+    start_time = time.time()
+    initial = clone_grid(puzzle)
+    queue: Deque[Tuple[Sudoku, List[SudokuStep]]] = deque([(initial, [])])
+    visited = set()
+    explored = 0
+    step_limit = 5000
+    max_states = 50000  # Limit explored states to avoid timeout
+
+    def grid_key(g: Sudoku) -> str:
+        """Convert grid to hashable key."""
+        return "".join(str(v) for row in g for v in row)
+
+    while queue and explored < max_states:
+        grid, steps = queue.popleft()
+        key = grid_key(grid)
+
+        if key in visited:
+            continue
+
+        visited.add(key)
+        explored += 1
+
+        # Find first empty cell
+        found_empty = False
+        for r in range(9):
+            for c in range(9):
+                if grid[r][c] == 0:
+                    found_empty = True
+                    # Try each valid value
+                    for v in range(1, 10):
+                        if is_valid(grid, r, c, v):
+                            new_grid = clone_grid(grid)
+                            new_grid[r][c] = v
+                            new_steps = steps.copy()
+                            if record_steps and len(new_steps) < step_limit:
+                                new_steps.append(
+                                    SudokuStep(r=r, c=c, v=v, action="place")
+                                )
+                            queue.append((new_grid, new_steps))
+                    break
+            if found_empty:
+                break
+
+        # If no empty cell found, grid is solved
+        if not found_empty:
+            elapsed = (time.time() - start_time) * 1000
+            stats = SolveStats(
+                algorithm="BFS",
+                steps=len(steps),
+                nodes_explored=explored,
+                time_ms=elapsed,
+                found=True,
+            )
+            return SudokuSolveResult(solution=grid, steps=steps, stats=stats)
+
+    elapsed = (time.time() - start_time) * 1000
+    stats = SolveStats(
+        algorithm="BFS",
+        steps=0,
+        nodes_explored=explored,
+        time_ms=elapsed,
+        found=False,
+    )
+    return SudokuSolveResult(solution=puzzle, steps=[], stats=stats)
+
+
+def solve_dfs(puzzle: Sudoku, record_steps: bool = True) -> SudokuSolveResult:
+    """Solve sudoku using DFS."""
+    start_time = time.time()
+    grid = clone_grid(puzzle)
+    steps: List[SudokuStep] = []
+    explored = 0
+    step_limit = 5000
+    max_depth = 5000
+
+    def dfs(depth: int) -> bool:
+        nonlocal explored
+
+        if depth > max_depth:
+            return False
+
+        explored += 1
+
+        # Find first empty cell
+        for r in range(9):
+            for c in range(9):
+                if grid[r][c] == 0:
+                    # Try each valid value
+                    for v in range(1, 10):
+                        if is_valid(grid, r, c, v):
+                            grid[r][c] = v
+                            if record_steps and len(steps) < step_limit:
+                                steps.append(
+                                    SudokuStep(r=r, c=c, v=v, action="place")
+                                )
+
+                            if dfs(depth + 1):
+                                return True
+
+                            grid[r][c] = 0
+                            if record_steps and len(steps) < step_limit:
+                                steps.append(
+                                    SudokuStep(r=r, c=c, v=0, action="backtrack")
+                                )
+
+                    return False
+
+        # All cells filled = solved
+        return True
+
+    found = dfs(0)
+    elapsed = (time.time() - start_time) * 1000
+
+    stats = SolveStats(
+        algorithm="DFS",
         steps=len(steps),
         nodes_explored=explored,
         time_ms=elapsed,

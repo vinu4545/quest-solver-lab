@@ -21,7 +21,12 @@ from solver.maze import (
     solve_bfs as solve_maze_bfs,
     solve_dfs as solve_maze_dfs,
 )
-from solver.sudoku import generate_sudoku, solve_backtracking
+from solver.sudoku import (
+    generate_sudoku,
+    solve_backtracking,
+    solve_bfs as solve_sudoku_bfs,
+    solve_dfs as solve_sudoku_dfs,
+)
 
 HOST = "127.0.0.1"
 PORT = 8000
@@ -176,13 +181,18 @@ class SolverHandler(BaseHTTPRequestHandler):
 
         if puzzle_type == "sudoku":
             puzzle = payload.get("puzzle")
-            result = solve_backtracking(puzzle)
+            if algorithm == "BFS":
+                result = solve_sudoku_bfs(puzzle)
+            elif algorithm == "DFS":
+                result = solve_sudoku_dfs(puzzle)
+            else:
+                result = solve_backtracking(puzzle)
             self._set_headers()
             self.wfile.write(
                 json.dumps(
                     {
                         "type": "sudoku",
-                        "algorithm": "Backtracking",
+                        "algorithm": algorithm or "Backtracking",
                         "stats": stats_to_camel_case(result.stats),
                         "sudokuPuzzle": puzzle,
                         "sudokuSolution": result.solution,

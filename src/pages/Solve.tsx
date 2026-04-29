@@ -12,7 +12,7 @@ import { solvePuzzle } from "@/lib/solver-api";
 
 const ALGOS_BY_TYPE: Record<string, Algorithm[]> = {
   "8puzzle": ["BFS", "DFS", "A*"],
-  sudoku: ["Backtracking"],
+  sudoku: ["BFS", "DFS", "Backtracking"],
   maze: ["BFS", "DFS", "A*"],
 };
 
@@ -39,8 +39,9 @@ const Solve = () => {
         if (!r.stats.found) toast({ title: "No solution within search limits", description: "Try A* or regenerate easier." });
         setSol({ type: "8puzzle", algorithm: algo, stats: r.stats, eightSteps: r.eightSteps });
       } else if (state.type === "sudoku" && state.sudoku) {
-        const r = await solvePuzzle({ type: "sudoku", puzzle: state.sudoku.puzzle });
-        setSol({ type: "sudoku", algorithm: "Backtracking", stats: r.stats, sudokuPuzzle: r.sudokuPuzzle, sudokuSolution: r.sudokuSolution, sudokuSteps: r.sudokuSteps });
+        const r = await solvePuzzle({ type: "sudoku", algorithm: algo as "BFS" | "DFS" | "Backtracking", puzzle: state.sudoku.puzzle });
+        if (!r.stats.found) toast({ title: "No solution within search limits", description: "Try Backtracking or regenerate easier." });
+        setSol({ type: "sudoku", algorithm: algo, stats: r.stats, sudokuPuzzle: r.sudokuPuzzle, sudokuSolution: r.sudokuSolution, sudokuSteps: r.sudokuSteps });
       } else if (state.type === "maze" && state.maze) {
         const r = await solvePuzzle({ type: "maze", algorithm: algo as "BFS" | "DFS" | "A*", maze: state.maze });
         setSol({ type: "maze", algorithm: algo, stats: r.stats, maze: r.maze, mazeOrder: r.mazeOrder, mazePath: r.mazePath });
@@ -100,7 +101,7 @@ const Solve = () => {
                 {algo === "BFS" && "Explores level by level. Optimal in steps for unweighted graphs."}
                 {algo === "DFS" && "Dives deep first. Memory-light, not optimal."}
                 {algo === "A*" && "f(n) = g(n) + h(n). Manhattan-distance heuristic guides toward goal."}
-                {algo === "Backtracking" && "Constraint propagation with MRV variable ordering."}
+                {algo === "Backtracking" && "Constraint propagation with MRV variable ordering. Fastest for Sudoku."}
               </p>
             </div>
           </div>
