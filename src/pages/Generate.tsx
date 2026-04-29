@@ -3,13 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Difficulty, PuzzleType, usePuzzle } from "@/state/puzzle";
-import { generate8Puzzle } from "@/ai/eightPuzzle";
-import { generateSudoku } from "@/ai/sudoku";
-import { generateMaze } from "@/ai/maze";
 import { EightPuzzleBoard } from "@/components/boards/EightPuzzleBoard";
 import { SudokuBoard } from "@/components/boards/SudokuBoard";
 import { MazeBoard } from "@/components/boards/MazeBoard";
 import { RefreshCw, ArrowRight } from "lucide-react";
+import { generatePuzzle } from "@/lib/solver-api";
 
 const DIFFS: Difficulty[] = ["easy", "medium", "hard"];
 
@@ -18,14 +16,17 @@ const Generate = () => {
   const [tick, setTick] = useState(0);
   const navigate = useNavigate();
 
-  const generate = () => {
-    if (state.type === "8puzzle") setState({ eight: generate8Puzzle(state.difficulty) });
-    if (state.type === "sudoku") setState({ sudoku: generateSudoku(state.difficulty) });
-    if (state.type === "maze") setState({ maze: generateMaze(state.difficulty) });
-    setTick((x) => x + 1);
+  const generate = async () => {
+    try {
+      const next = await generatePuzzle(state.type, state.difficulty);
+      setState(next as Partial<typeof state>);
+      setTick((x) => x + 1);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  useEffect(() => { generate(); /* eslint-disable-next-line */ }, [state.type, state.difficulty]);
+  useEffect(() => { void generate(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [state.type, state.difficulty]);
 
   return (
     <main className="container py-10">

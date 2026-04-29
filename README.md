@@ -1,177 +1,44 @@
-🚀 FINAL WEBSITE GENERATION PROMPT
+# Quest Solver Lab
 
-You are a Senior AI Systems Architect, Full-Stack Developer, and Game Intelligence Engineer.
+The puzzle solvers now live in Python under `solver/`, and the React frontend talks to them through a small local HTTP API.
 
-Your task is to design and build a complete, modern, multi-page web application called:
+## What runs where
 
-🧩 “Intelligent Puzzle Game Generator & Solver”
+- `solver/` contains the Python implementations for 8-puzzle, maze, and sudoku.
+- `backend_server.py` exposes the Python solvers over HTTP.
+- The React pages call that API for generate and solve actions.
 
-This platform simulates an AI-powered puzzle system that:
-- 🔹 Generates puzzles dynamically (not hardcoded)
-- 🔹 Solves puzzles using AI search algorithms
-- 🔹 Provides step-by-step reasoning and visualization
-- 🔹 Demonstrates Search, Knowledge Representation, and Planning
+## How to run it
 
-The website must be visually attractive, modern, and include smooth animations.
+Run everything with one command:
 
-==================================================
-🎯 CORE FEATURES
-==================================================
+```bash
+npm run dev
+```
 
-- 🧠 Dynamic Puzzle Generation (valid & solvable only)
-- 🤖 AI-based Puzzle Solving (BFS, DFS, A*, Backtracking)
-- 🔄 Step-by-step solution visualization
-- 📊 Explainable AI reasoning
-- ⏱️ Performance metrics (steps, nodes, time)
+That starts both the Python API server and the Vite frontend together.
 
-==================================================
-🧩 SUPPORTED PUZZLES (MVP)
-==================================================
+If you want to run them separately:
 
-- 🔢 8-Puzzle (Sliding Puzzle)
-- 🧮 Sudoku Solver
-- 🧭 Maze Solver
+1. Start the API:
+	```bash
+	npm run api
+	```
 
-==================================================
-🌐 WEBSITE STRUCTURE (MULTI-PAGE)
-==================================================
+2. Start the frontend:
+	```bash
+	npm run dev
+	```
 
-1. 🏠 Home Page
-   - Project overview
-   - AI concept explanation
-   - Buttons:
-     - ▶️ Generate Puzzle
-     - 🧠 Solve Puzzle
+The frontend URL is the one printed by Vite, usually `http://localhost:5173` or `http://localhost:8080`.
 
-2. ⚙️ Puzzle Generator Page
-   - Select puzzle type
-   - Select difficulty (Easy / Medium / Hard)
-   - Generate puzzle dynamically
-   - Visual display of puzzle
+## Python solver commands
 
-3. 🧠 Puzzle Solver Page
-   - Input puzzle OR use generated one
-   - Select algorithm:
-     - BFS
-     - DFS
-     - A*
-     - Backtracking (Sudoku)
-   - ▶️ Solve button
+- `python3 test_solver.py` runs the solver test suite.
+- `python3 quick_start.py` prints example runs for all puzzles.
+- `python3 backend_server.py` starts only the solver API.
 
-4. 🔄 Solution Visualization Page
-   - Step-by-step transitions
-   - Highlight moves
-   - Show solution path
+## API base URL
 
-5. 📘 AI Explanation Page
-   - Algorithm used
-   - Heuristic (for A*)
-   - Time complexity
-   - Nodes explored
-   - Reasoning behind solution
-
-==================================================
-🧠 AI CORE LOGIC
-==================================================
-
-🔍 SEARCH:
-- BFS → shortest path
-- DFS → deep exploration
-- A* → heuristic optimal search
-- Backtracking → constraint solving
-
-📦 KNOWLEDGE REPRESENTATION:
-- 8-Puzzle → 2D array state
-- Sudoku → constraint grid
-- Maze → graph (nodes & edges)
-
-🧭 PLANNING:
-- Generate sequence of actions:
-  - Move tile
-  - Fill cell
-  - Navigate path
-
-==================================================
-⚙️ PUZZLE GENERATION RULES
-==================================================
-
-- ✅ Only valid and solvable puzzles
-- ❌ Avoid already solved states
-- 📈 Difficulty controls complexity
-
-==================================================
-📊 SOLVER OUTPUT
-==================================================
-
-- 🔢 Total steps
-- 🌐 Nodes explored
-- ⏱️ Time taken
-- 🧭 Solution path
-
-==================================================
-🎨 UI/UX REQUIREMENTS
-==================================================
-
-- 🌙 Dark modern theme
-- 🎮 Interactive puzzle boards
-- ✨ Smooth animations
-- 🎛️ Controls: Play / Pause / Next
-- 🎨 Color coding:
-  - Current state
-  - Goal state
-  - Active transitions
-
-==================================================
-⚡ BACKEND REQUIREMENTS
-==================================================
-
-- 🐍 Python (FastAPI / Flask) OR Node.js
-- Modular structure:
-  - Generator module
-  - Solver module
-  - Visualization module
-
-==================================================
-💻 FRONTEND REQUIREMENTS
-==================================================
-
-- ⚛️ React.js OR HTML/CSS/JS
-- Dynamic rendering
-- Step visualization controls
-
-==================================================
-🔒 VALIDATION RULES
-==================================================
-
-- ❌ No invalid states
-- ❌ No unsolvable puzzles
-- ❌ No infinite loops
-- ✅ Enforce constraints
-
-==================================================
-🚀 ADVANCED FEATURES (OPTIONAL)
-==================================================
-
-- 📊 Algorithm comparison (BFS vs A*)
-- 📈 Performance graphs
-- 🤖 Adaptive difficulty
-- 👥 Multiplayer puzzles
-
-==================================================
-🚫 RESTRICTIONS
-==================================================
-
-DO NOT:
-- ❌ Hardcode puzzles
-- ❌ Fake AI logic
-- ❌ Skip solving steps
-- ❌ Build UI without intelligence
-
-==================================================
-🏁 GOAL
-==================================================
-
-Deliver a working MVP that clearly demonstrates:
-
-🧠 Search + Knowledge Representation + Planning  
-through an intelligent, interactive puzzle system.
+By default the frontend uses `http://127.0.0.1:8000`.
+Set `VITE_SOLVER_API_URL` if you want to point it somewhere else.

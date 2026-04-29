@@ -7,7 +7,9 @@ import { EightPuzzleBoard } from "@/components/boards/EightPuzzleBoard";
 import { SudokuBoard } from "@/components/boards/SudokuBoard";
 import { MazeBoard } from "@/components/boards/MazeBoard";
 import { Pause, Play, SkipBack, SkipForward, RotateCcw, BookOpen } from "lucide-react";
-import { cloneGrid, Sudoku } from "@/ai/sudoku";
+import type { Sudoku } from "@/backend/ai/sudoku";
+
+const cloneGrid = (grid: Sudoku): Sudoku => grid.map((row) => row.slice());
 
 const Stat = ({ label, value }: { label: string; value: string | number }) => (
   <div className="rounded-lg border border-border bg-muted/30 p-3">

@@ -1,4 +1,4 @@
-import { MazeData, Pos } from "@/ai/maze";
+import { MazeData, Pos } from "@/backend/ai/maze";
 
 const k = (p: Pos) => `${p.r},${p.c}`;
 

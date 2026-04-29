@@ -3,14 +3,12 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { usePuzzle } from "@/state/puzzle";
 import { Algorithm, useSolution } from "@/state/solution";
-import { solveBFS as eBFS, solveDFS as eDFS, solveAStar as eAStar } from "@/ai/eightPuzzle";
-import { solveBacktracking } from "@/ai/sudoku";
-import { solveBFS as mBFS, solveDFS as mDFS, solveAStar as mAStar } from "@/ai/maze";
 import { EightPuzzleBoard } from "@/components/boards/EightPuzzleBoard";
 import { SudokuBoard } from "@/components/boards/SudokuBoard";
 import { MazeBoard } from "@/components/boards/MazeBoard";
 import { ArrowRight, Cpu, Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { solvePuzzle } from "@/lib/solver-api";
 
 const ALGOS_BY_TYPE: Record<string, Algorithm[]> = {
   "8puzzle": ["BFS", "DFS", "A*"],
@@ -37,19 +35,22 @@ const Solve = () => {
     await new Promise((r) => setTimeout(r, 30));
     try {
       if (state.type === "8puzzle" && state.eight) {
-        const fn = algo === "BFS" ? eBFS : algo === "DFS" ? eDFS : eAStar;
-        const r = fn(state.eight);
+        const r = await solvePuzzle({ type: "8puzzle", algorithm: algo as "BFS" | "DFS" | "A*", board: state.eight });
         if (!r.stats.found) toast({ title: "No solution within search limits", description: "Try A* or regenerate easier." });
-        setSol({ type: "8puzzle", algorithm: algo, stats: r.stats, eightSteps: r.steps });
+        setSol({ type: "8puzzle", algorithm: algo, stats: r.stats, eightSteps: r.eightSteps });
       } else if (state.type === "sudoku" && state.sudoku) {
-        const r = solveBacktracking(state.sudoku.puzzle);
-        setSol({ type: "sudoku", algorithm: "Backtracking", stats: r.stats, sudokuPuzzle: state.sudoku.puzzle, sudokuSolution: r.solution, sudokuSteps: r.steps });
+        const r = await solvePuzzle({ type: "sudoku", puzzle: state.sudoku.puzzle });
+        setSol({ type: "sudoku", algorithm: "Backtracking", stats: r.stats, sudokuPuzzle: r.sudokuPuzzle, sudokuSolution: r.sudokuSolution, sudokuSteps: r.sudokuSteps });
       } else if (state.type === "maze" && state.maze) {
-        const fn = algo === "BFS" ? mBFS : algo === "DFS" ? mDFS : mAStar;
-        const r = fn(state.maze);
-        setSol({ type: "maze", algorithm: algo, stats: r.stats, maze: state.maze, mazeOrder: r.order, mazePath: r.path });
+        const r = await solvePuzzle({ type: "maze", algorithm: algo as "BFS" | "DFS" | "A*", maze: state.maze });
+        setSol({ type: "maze", algorithm: algo, stats: r.stats, maze: r.maze, mazeOrder: r.mazeOrder, mazePath: r.mazePath });
       }
       navigate("/visualize");
+    } catch (error) {
+      toast({
+        title: "Solve failed",
+        description: error instanceof Error ? error.message : "The Python solver API is not reachable.",
+      });
     } finally {
       setBusy(false);
     }

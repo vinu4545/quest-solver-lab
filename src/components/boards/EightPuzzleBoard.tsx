@@ -1,4 +1,4 @@
-import { Board } from "@/ai/eightPuzzle";
+import { Board } from "@/backend/ai/eightPuzzle";
 
 export const EightPuzzleBoard = ({ board, highlightZero = true, justMoved }: { board: Board; highlightZero?: boolean; justMoved?: number | null }) => (
   <div className="grid grid-cols-3 gap-2 rounded-xl bg-muted/40 p-2 dark:gap-3 dark:rounded-2xl dark:border dark:border-border/90 dark:bg-background/80 dark:p-3 dark:shadow-[0_24px_60px_-28px_hsl(240_50%_2%/0.7)]">

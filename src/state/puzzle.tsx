@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
-import type { Board } from "@/ai/eightPuzzle";
-import type { Sudoku } from "@/ai/sudoku";
-import type { MazeData } from "@/ai/maze";
+import type { Board } from "@/backend/ai/eightPuzzle";
+import type { Sudoku } from "@/backend/ai/sudoku";
+import type { MazeData } from "@/backend/ai/maze";
 
 export type PuzzleType = "8puzzle" | "sudoku" | "maze";
 export type Difficulty = "easy" | "medium" | "hard";

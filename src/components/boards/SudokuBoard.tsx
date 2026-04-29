@@ -1,4 +1,4 @@
-import { Sudoku } from "@/ai/sudoku";
+import { Sudoku } from "@/backend/ai/sudoku";
 
 export const SudokuBoard = ({
   puzzle, current, highlight,

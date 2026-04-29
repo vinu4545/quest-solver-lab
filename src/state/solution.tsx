@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import type { Board } from "@/ai/eightPuzzle";
-import type { Sudoku, SudokuStep } from "@/ai/sudoku";
-import type { MazeData, Pos } from "@/ai/maze";
-import type { SolveStats } from "@/ai/common";
+import type { Board } from "@/backend/ai/eightPuzzle";
+import type { Sudoku, SudokuStep } from "@/backend/ai/sudoku";
+import type { MazeData, Pos } from "@/backend/ai/maze";
+import type { SolveStats } from "@/backend/ai/common";
 
 export type Algorithm = "BFS" | "DFS" | "A*" | "Backtracking";
 
